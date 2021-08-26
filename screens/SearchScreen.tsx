@@ -18,7 +18,7 @@ import {
   Input,
   Text,
 } from "../components/Themed";
-import { Context, downloadedBooks } from "../common/common";
+import { Context, downloadedBooks, navigate } from "../common/common";
 import { BookType, BottomTabParamList } from "../types";
 import { StackScreenProps } from "@react-navigation/stack";
 const { AND, OR, TERM, CONSTANT, DISMAX } = require("paxx");
@@ -36,6 +36,9 @@ function DownloadButton({ id }: { id: string }) {
         (async () => {
           if (downloading) {
             return;
+          } else if (done) {
+            navigate("Book", { id });
+            return
           }
           setErr(null);
           setProgress("downloading..");
@@ -91,7 +94,7 @@ function DownloadButton({ id }: { id: string }) {
         })();
       }}
     >
-      {downloading ? progress : done ? (err ? err : "done") : "download"}
+      {downloading ? progress : done ? (err ? err : "read") : "download"}
     </Button>
   );
 }
