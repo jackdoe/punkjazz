@@ -185,7 +185,7 @@ export default function BookScreen({
             e.nativeEvent.contentOffset.y >=
             e.nativeEvent.contentSize.height - paddingToBottom
           ) {
-            if (!animationStarted && currentPage < book.length) {
+            if (!animationStarted && currentPage < book.length-1) {
               setAnimationStarted(true);
               setTimeout(() => {
                 setNextSymbol(">>");
