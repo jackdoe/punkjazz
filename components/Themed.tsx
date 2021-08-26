@@ -18,6 +18,10 @@ export type TextProps = DefaultText["props"];
 export type ViewProps = DefaultView["props"];
 export type InputProps = DefaultInput["props"];
 export const themes = {
+  black: {
+    bgcolor: "#000000",
+    color: "#d7d7d8",
+  },
   dark: {
     bgcolor: "#121314",
     color: "#d7d7d8",

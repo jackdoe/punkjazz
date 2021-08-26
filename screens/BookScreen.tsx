@@ -9,6 +9,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Context } from "../common/common";
 import { useCallback } from "react";
+import { useKeepAwake } from "expo-keep-awake";
 
 const spaceChar = " ";
 const tabChar = "\t";
@@ -125,6 +126,8 @@ export default function BookScreen({
     params: { id },
   },
 }) {
+  useKeepAwake()
+
   const [book, setBook] = useState<Array<string>>([]);
   const [context, setContext] = React.useContext(Context);
   const t = themes[context.theme];
@@ -139,7 +142,7 @@ export default function BookScreen({
         let data = await FileSystem.readAsStringAsync(
           FileSystem.documentDirectory + "books/b-" + id + "/" + id + ".txt"
         );
-        let splitted = splitBook(data, 5000);
+        let splitted = splitBook(data, 3000);
         setBook(splitted);
         try {
           let savedCurrentPage = await AsyncStorage.getItem(savedPageKey);
@@ -172,7 +175,6 @@ export default function BookScreen({
   if (currentPage > pageTotal) {
     return <Text>...</Text>;
   }
-
   return (
     <Container>
       <ScrollView
