@@ -135,7 +135,7 @@ export default function BookScreen({
 
   return (
     <Container>
-      <ScrollView style={{ flex: 1 }} ref={scrollRef}>
+      <ScrollView style={styles.bookView} ref={scrollRef}>
         <Text>{book[currentPage]}</Text>
       </ScrollView>
       <View style={styles.bottomContainer}>
@@ -181,6 +181,10 @@ export default function BookScreen({
 }
 
 const styles = StyleSheet.create({
+  bookView: {
+    flex: 1,
+    padding: 4
+  },
   bottomElement: {
     flex: 1,
     borderWidth: 1,
@@ -194,5 +198,6 @@ const styles = StyleSheet.create({
     flex: 0.1,
     justifyContent: "center",
     alignItems: "center",
+    padding: 4
   },
 });
