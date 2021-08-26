@@ -7,6 +7,7 @@ import * as FileSystem from "expo-file-system";
 import { Button, Container, Text } from "../components/Themed";
 import { Context, downloadedBooks, navigate } from "../common/common";
 import { BookRow } from "./SearchScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function FavScreen({ navigation }) {
   const [context, setContext] = useContext(Context);
@@ -78,6 +79,7 @@ export default function FavScreen({ navigation }) {
                           let downloaded = await downloadedBooks(
                             context.booksByID
                           );
+                          AsyncStorage.removeItem( "book-current-page-" + b.id)
                           setContext({ ...context, downloaded });
                         },
                       },

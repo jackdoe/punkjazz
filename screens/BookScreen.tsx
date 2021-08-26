@@ -145,7 +145,7 @@ export default function BookScreen({
           let savedCurrentPage = await AsyncStorage.getItem(savedPageKey);
           let c = parseInt(savedCurrentPage || "0");
           if (c <= 0) c = 0;
-          if (c >= splitted.length - 1) c = splitted.length - 1;
+          if (c > splitted.length - 1) c = splitted.length - 1;
           setCurrentPage(c);
         } catch (e) {
           console.warn(e);
@@ -160,18 +160,14 @@ export default function BookScreen({
   const scrollRef = React.useRef(null);
   const isScrolling = React.useRef(false);
   const viewWidth = React.useRef(0);
-
-  const pageNav = useCallback((n) => {
+  const pageNav = (n) => {
     let next = currentPage + n;
-    if (next <= 0) {
-      next = 0;
-    } else if (next > pageTotal) {
-      next = pageTotal;
+    if (next >= 0 && next <= pageTotal) {
+      AsyncStorage.setItem(savedPageKey, String(next));
+      setCurrentPage(next);
+      scrollRef.current?.scrollTo({ offset: 0, animated: false });
     }
-    AsyncStorage.setItem(savedPageKey, String(next));
-    setCurrentPage(next);
-    scrollRef.current?.scrollTo({ offset: 0, animated: false });
-  },[currentPage]);
+  };
 
   if (currentPage > pageTotal) {
     return <Text>...</Text>;
