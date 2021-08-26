@@ -24,7 +24,13 @@ const newLineR = "\r";
  * 
  */
 function normalizeText(t: string) {
-  return t?.split(/[\r\n]{3,}/).map(l => l.replace(/^[\r\n]/, '').replace(/[\r\n]+/g, ' ')).join('\n\n')
+  return t?.split(/[\r\n]{3,}/).map(l => {
+    if (l.startsWith(' ')) {
+      return l
+    }
+
+    return  l.replace(/^[\r\n]/, '').replace(/[\r\n]+/g, 'fff')
+  }).join('\n\n')
 }
 
 function lastLines(buf: Array<string>, n: number) {
