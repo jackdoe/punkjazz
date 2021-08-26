@@ -190,8 +190,6 @@ export default function BookScreen({
                 }, 150);
               }, 0);
             }
-          } else {
-
           }
         }}
         onLayout={(e) => viewWidth.current = e.nativeEvent.layout.width}
@@ -207,7 +205,9 @@ export default function BookScreen({
         ref={scrollRef}
       >
         <Text>{normalizeText(book[currentPage])}</Text>
+        <View style={{padding: 5}}></View>
       </ScrollView>
+
       <View style={styles.bottomContainer}>
         <View style={[styles.bottomElement, { borderColor: t.color }]}>
           <TouchableOpacity onPress={() => pageNav(-1)}>
@@ -226,13 +226,13 @@ export default function BookScreen({
 const styles = StyleSheet.create({
   bookView: {
     flex: 1,
-    padding: 4
+    padding: 4,
   },
   bottomContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    padding: 4
+    padding: 4,
   },
   bottomElement: {
     flex: 1,
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderWidth: 1,
     borderStyle: 'dashed',
-    paddingVertical: 8
+    paddingVertical: 8,
   },
   nav: {
     fontSize: 15,
