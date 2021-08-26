@@ -216,9 +216,8 @@ export default function UpdateScreen() {
   const possible = Object.keys(themes);
   possible.sort();
 
-  const fonts: Array<string> = [];
+  const fonts: Array<string> = ["merriweather","libre-baskerville","space-mono","3270"];
   if (Platform.OS == "ios") {
-    fonts.push("space-mono");
     fonts.push("Helvetica");
     fonts.push("Helvetica Neue");
     fonts.push("Helvetica-Light");
@@ -226,7 +225,6 @@ export default function UpdateScreen() {
     fonts.push("HelveticaNeue-Medium");
     fonts.push("HelveticaNeue-Thin");
   } else {
-    fonts.push("space-mono");
     fonts.push("normal");
     fonts.push("notoserif");
     fonts.push("sans-serif");

@@ -30,8 +30,13 @@ export default function App() {
       await Font.loadAsync({
         ...Ionicons.font,
         "space-mono": require("./assets/fonts/SpaceMono-Regular.ttf"),
+        "libre-baskerville": require("./assets/fonts/LibreBaskerville-Regular.ttf"),
+        "merriweather": require("./assets/fonts/Merriweather-Regular.ttf"),
+        "3270": require("./assets/fonts/3270-Regular.ttf")
+
       });
 
+      
       let theme = await AsyncStorage.getItem("theme")
       let font = await AsyncStorage.getItem("font")
       let fontSize = parseInt(await AsyncStorage.getItem("fontSize") || "14")

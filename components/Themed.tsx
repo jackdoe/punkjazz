@@ -146,6 +146,7 @@ export function Container({
     flex: 1,
     backgroundColor: t.bgcolor,
     padding: 5,
+
   };
   if (center) {
     s = {

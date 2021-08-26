@@ -105,7 +105,12 @@ export default function BookScreen({
 }) {
   const [book, setBook] = useState<Array<string>>([]);
   const [context, setContext] = React.useContext(Context);
+  const t = themes[context.theme];
+
   const [currentPage, setCurrentPage] = useState<number>(0);
+  const [nextSymbol, setNextSymbol] = useState<string>(">");
+  const [animationStarted, setAnimationStarted] = useState<boolean>(false);
+
   const savedPageKey = "book-current-page-" + id;
   useEffect(() => {
     (async () => {
@@ -131,11 +136,39 @@ export default function BookScreen({
   }
 
   const scrollRef = React.useRef(null);
-  const t = themes[context.theme];
-
   return (
     <Container>
-      <ScrollView style={styles.bookView} ref={scrollRef}>
+      <ScrollView
+         style={styles.bookView} 
+        scrollEventThrottle={100}
+        onScroll={(e) => {
+          let paddingToBottom = 10;
+          paddingToBottom += e.nativeEvent.layoutMeasurement.height;
+          if (
+            e.nativeEvent.contentOffset.y >=
+            e.nativeEvent.contentSize.height - paddingToBottom
+          ) {
+            if (!animationStarted && currentPage < book.length) {
+              setAnimationStarted(true)
+              setTimeout(() => {
+                setNextSymbol(">>");
+                setTimeout(() => {
+                  setNextSymbol(">>>");
+                  setTimeout(() => {
+                    setNextSymbol(">");
+                    setTimeout(() => {
+                      setAnimationStarted(false)
+                    }, 1000);
+                  }, 200);
+                }, 200);
+              }, 200);
+            }
+          } else {
+
+          }
+        }}
+        ref={scrollRef}
+      >
         <Text>{book[currentPage]}</Text>
       </ScrollView>
       <View style={styles.bottomContainer}>
@@ -156,13 +189,13 @@ export default function BookScreen({
         >
           <Text>&lt;</Text>
         </TouchableOpacity>
-        <View style={{width: 10}} />
+        <View style={{ width: 10 }} />
         <TouchableOpacity
           style={[styles.bottomElement, { borderColor: t.color }]}
         >
           <Text>{currentPage}</Text>
         </TouchableOpacity>
-        <View style={{width: 10}} />
+        <View style={{ width: 10 }} />
         <TouchableOpacity
           onPress={() => {
             if (currentPage < book.length) {
@@ -173,7 +206,7 @@ export default function BookScreen({
           }}
           style={[styles.bottomElement, { borderColor: t.color }]}
         >
-          <Text>&gt;</Text>
+          <Text>{nextSymbol}</Text>
         </TouchableOpacity>
       </View>
     </Container>
