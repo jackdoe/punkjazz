@@ -18,19 +18,22 @@ const newLineR = "\r";
 /**
  * Gutenberg files have line breaks at 76 characters, which makes lines very
  * ragged on mobile.
- * 
+ *
  * Let's remove those. First we split actual paragraphs - sequences of 3 line breaks. Then we
  * remove all other line breaks, and glue it back together. Seems to work.
- * 
+ *
  */
 function normalizeText(t: string) {
-  return t?.split(/[\r\n]{3,}/).map(l => {
-    if (l.startsWith(' ')) {
-      return l
-    }
+  return t
+    ?.split(/[\r\n]{3,}/)
+    .map((l) => {
+      if (l.startsWith(" ")) {
+        return l;
+      }
 
-    return  l.replace(/^[\r\n]/, '').replace(/[\r\n]+/g, '')
-  }).join('\n\n')
+      return l.replace(/^[\r\n]/, "").replace(/[\r\n]+/g, " ");
+    })
+    .join("\n\n");
 }
 
 function lastLines(buf: Array<string>, n: number) {
@@ -129,7 +132,6 @@ export default function BookScreen({
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [nextSymbol, setNextSymbol] = useState<string>(">");
   const [animationStarted, setAnimationStarted] = useState<boolean>(false);
-
   const savedPageKey = "book-current-page-" + id;
   useEffect(() => {
     (async () => {
@@ -141,7 +143,10 @@ export default function BookScreen({
         setBook(splitted);
         try {
           let savedCurrentPage = await AsyncStorage.getItem(savedPageKey);
-          setCurrentPage(parseInt(savedCurrentPage || "0"));
+          let c = parseInt(savedCurrentPage || "0");
+          if (c <= 0) c = 0;
+          if (c >= splitted.length - 1) c = splitted.length - 1;
+          setCurrentPage(c);
         } catch (e) {
           console.warn(e);
         }
@@ -157,13 +162,16 @@ export default function BookScreen({
   const viewWidth = React.useRef(0);
 
   const pageNav = useCallback((n) => {
-    const next = currentPage + n;
-    if (next >= 0 && next <= pageTotal) {
-      AsyncStorage.setItem(savedPageKey, String(next));
-      setCurrentPage(next);
-      scrollRef.current?.scrollTo({ offset: 0, animated: false });
+    let next = currentPage + n;
+    if (next <= 0) {
+      next = 0;
+    } else if (next > pageTotal) {
+      next = pageTotal;
     }
-  }, [currentPage]);
+    AsyncStorage.setItem(savedPageKey, String(next));
+    setCurrentPage(next);
+    scrollRef.current?.scrollTo({ offset: 0, animated: false });
+  },[currentPage]);
 
   if (currentPage > pageTotal) {
     return <Text>...</Text>;
@@ -182,7 +190,7 @@ export default function BookScreen({
             e.nativeEvent.contentSize.height - paddingToBottom
           ) {
             if (!animationStarted && currentPage < book.length) {
-              setAnimationStarted(true)
+              setAnimationStarted(true);
               setTimeout(() => {
                 setNextSymbol(">>");
                 setTimeout(() => {
@@ -190,7 +198,7 @@ export default function BookScreen({
                   setTimeout(() => {
                     setNextSymbol(">");
                     setTimeout(() => {
-                      setAnimationStarted(false)
+                      setAnimationStarted(false);
                     }, 1000);
                   }, 150);
                 }, 150);
@@ -198,7 +206,7 @@ export default function BookScreen({
             }
           }
         }}
-        onLayout={(e) => viewWidth.current = e.nativeEvent.layout.width}
+        onLayout={(e) => (viewWidth.current = e.nativeEvent.layout.width)}
         onTouchEnd={(e) => {
           if (!isScrolling.current) {
             const touchX = e.nativeEvent.locationX / viewWidth.current;
@@ -206,12 +214,16 @@ export default function BookScreen({
             if (touchX > 0.7) pageNav(+1);
           }
         }}
-        onScrollBeginDrag={() => { isScrolling.current = true; }}
-        onScrollEndDrag={() => { isScrolling.current = false; }}
+        onScrollBeginDrag={() => {
+          isScrolling.current = true;
+        }}
+        onScrollEndDrag={() => {
+          isScrolling.current = false;
+        }}
         ref={scrollRef}
       >
         <Text>{normalizeText(book[currentPage])}</Text>
-        <View style={{padding: 5}}></View>
+        <View style={{ padding: 5 }}></View>
       </ScrollView>
 
       <View style={styles.bottomContainer}>
@@ -219,7 +231,9 @@ export default function BookScreen({
           <TouchableOpacity onPress={() => pageNav(-1)}>
             <Text style={[styles.nav, styles.navLeft]}>&lt;</Text>
           </TouchableOpacity>
-          <Text>{currentPage}/{pageTotal}</Text>
+          <Text>
+            {currentPage}/{pageTotal}
+          </Text>
           <TouchableOpacity onPress={() => pageNav(+1)}>
             <Text style={[styles.nav, styles.navRight]}>{nextSymbol}</Text>
           </TouchableOpacity>
@@ -248,14 +262,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 8,
     borderWidth: 1,
-    borderStyle: 'dashed',
+    borderStyle: "dashed",
     paddingVertical: 8,
   },
   nav: {
     fontSize: 15,
     width: 30,
-    textAlign: "center"
+    textAlign: "center",
   },
   navLeft: { textAlign: "left" },
-  navRight: { textAlign: "right" }
+  navRight: { textAlign: "right" },
 });
