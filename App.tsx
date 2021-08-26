@@ -8,6 +8,7 @@ import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
 import * as FileSystem from "expo-file-system";
 import { BooksByIDType, BookType, ContextType } from "./types";
+import { themes } from './components/Themed'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
@@ -73,6 +74,7 @@ export default function App() {
       <SafeAreaProvider>
         <Context.Provider value={[context, setContext]}>
           <Navigation />
+          <StatusBar hidden={false} translucent={false} backgroundColor={themes[context.theme].bgcolor}/>
         </Context.Provider>
       </SafeAreaProvider>
     );

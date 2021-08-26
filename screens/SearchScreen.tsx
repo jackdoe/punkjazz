@@ -11,12 +11,15 @@ import {
 } from "react-native";
 import * as FileSystem from "expo-file-system";
 
-import { Button, Container, DashedView, Input, Text } from "../components/Themed";
-import { Context, downloadedBooks } from "../common/common";
 import {
-  BookType,
-  BottomTabParamList,
-} from "../types";
+  Button,
+  Container,
+  DashedView,
+  Input,
+  Text,
+} from "../components/Themed";
+import { Context, downloadedBooks } from "../common/common";
+import { BookType, BottomTabParamList } from "../types";
 import { StackScreenProps } from "@react-navigation/stack";
 const { AND, OR, TERM, CONSTANT, DISMAX } = require("paxx");
 
@@ -237,7 +240,7 @@ export default function SearchScreen({
     <Container>
       <Input
         placeholderTextColor="silver"
-        placeholder="alice wonderland"
+        placeholder="search for title, author, subject.."
         autoFocus={true}
         style={{
           borderStyle: "dashed",
@@ -253,6 +256,8 @@ export default function SearchScreen({
         }}
       ></Input>
       <FlatList
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
         data={matches}
         style={{ flex: 1 }}
         ListHeaderComponent={

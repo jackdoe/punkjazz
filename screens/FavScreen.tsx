@@ -27,6 +27,8 @@ export default function FavScreen({ navigation }) {
   return (
     <Container>
       <FlatList
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
         data={books}
         style={{ flex: 1 }}
         keyExtractor={(book) => book.id}
