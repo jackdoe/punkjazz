@@ -14,6 +14,18 @@ const tabChar = "\t";
 const newLineN = "\n";
 const newLineR = "\r";
 
+/**
+ * Gutenberg files have line breaks at 76 characters, which makes lines very
+ * ragged on mobile.
+ * 
+ * Let's remove those. First we split actual paragraphs - sequences of 3 line breaks. Then we
+ * remove all other line breaks, and glue it back together. Seems to work.
+ * 
+ */
+function normalizeText(t: string) {
+  return t?.split(/[\r\n]{3,}/).map(l => l.replace(/^[\r\n]/, '').replace(/[\r\n]+/g, ' ')).join('\n\n')
+}
+
 function lastLines(buf: Array<string>, n: number) {
   let out: Array<string> = [];
   for (let i = buf.length - 1; i >= 0; i--) {
@@ -169,7 +181,7 @@ export default function BookScreen({
         }}
         ref={scrollRef}
       >
-        <Text>{book[currentPage]}</Text>
+        <Text>{normalizeText(book[currentPage])}</Text>
       </ScrollView>
       <View style={styles.bottomContainer}>
         <TouchableOpacity
