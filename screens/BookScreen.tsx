@@ -29,7 +29,7 @@ function normalizeText(t: string) {
       return l
     }
 
-    return  l.replace(/^[\r\n]/, '').replace(/[\r\n]+/g, 'fff')
+    return  l.replace(/^[\r\n]/, '').replace(/[\r\n]+/g, '')
   }).join('\n\n')
 }
 
