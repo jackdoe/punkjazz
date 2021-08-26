@@ -40,16 +40,28 @@ export const themes = {
 
   eggplant: { bgcolor: "#2f2235", color: "#bfc3ba" },
 };
+
+function getLineHeight(font: string, fontSize: number) {
+  switch (font) {
+    case 'merriweather':
+    case 'libre-baskerville':
+      return fontSize * 1.5;
+    default:
+      return fontSize * 1.35;
+  }
+}
+
 export function Text(props: TextProps) {
   const { style, ...otherProps } = props;
   const [context, setContext] = React.useContext(Context);
   const t = themes[context.theme];
   const color = t.color;
+  const lineHeight = getLineHeight(context.font, context.fontSize)
   return (
     <DefaultText
       {...otherProps}
       style={[
-        { color: color, fontFamily: context.font, fontSize: context.fontSize },
+        { color: color, fontFamily: context.font, fontSize: context.fontSize, lineHeight },
         props.style,
       ]}
     />
