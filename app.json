@@ -6,6 +6,7 @@
     "icon": "./assets/icon.png",
     "description": "punkjazz is a local search engine for gutenberg.org's catalog",
     "primaryColor": "#000000",
+    "githubUrl": "https://github.com/jackdoe/punkjazz",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
