@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
   },
   nav: {
     fontSize: 15,
-    width: 30,
+    width: 60,
     textAlign: "center",
   },
   navLeft: { textAlign: "left" },
