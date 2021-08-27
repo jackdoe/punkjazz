@@ -99,10 +99,6 @@ function splitBook(bytes: string, nBytesSplit: number) {
         }
       }
       i = j;
-
-      // make sure each page has few lines from the previous page
-      current = addPreviousLinesToEnd(5, out, current);
-
       out.push(current);
       current = [];
       left = nBytesSplit;
@@ -142,7 +138,7 @@ export default function BookScreen({
         let data = await FileSystem.readAsStringAsync(
           FileSystem.documentDirectory + "books/b-" + id + "/" + id + ".txt"
         );
-        let splitted = splitBook(data, 3000);
+        let splitted = splitBook(normalizeText(data), 3000);
         setBook(splitted);
         try {
           let savedCurrentPage = await AsyncStorage.getItem(savedPageKey);
@@ -220,7 +216,7 @@ export default function BookScreen({
         }}
         ref={scrollRef}
       >
-        <Text>{normalizeText(book[currentPage])}</Text>
+        <Text>{book[currentPage]}</Text>
         <View style={{ padding: 5 }}></View>
       </ScrollView>
 
