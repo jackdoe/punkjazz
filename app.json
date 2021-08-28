@@ -26,6 +26,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
+      "package": "org.punkjazz",
+      "versionCode": 1,
       "permissions": []
     },
     "web": {
