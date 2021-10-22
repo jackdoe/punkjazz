@@ -7,5 +7,9 @@
         "appleTeamId": "23LTAYJ5Y8"
       }
     }
+  },
+  "build": {
+    "production": {
+    }
   }
 }

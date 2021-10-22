@@ -1,0 +1,1 @@
+the search is local on your phone, and the downloaded books are local as well. The catalog and the thumbnails of the books are downloaded from gutenberg.org, so they have your IP address. You can read their privacy policy here: https://www.gutenberg.org/policy/privacy_policy.html (basically they store your IP for 60 days)
