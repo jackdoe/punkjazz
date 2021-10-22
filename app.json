@@ -2,7 +2,7 @@
   "expo": {
     "name": "punkjazz",
     "slug": "punkjazz",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "icon": "./assets/icon.png",
     "description": "punkjazz is a local search engine for gutenberg.org's catalog",
     "primaryColor": "#000000",
