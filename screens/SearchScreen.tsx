@@ -19,6 +19,7 @@ import {
   Text,
 } from "../components/Themed";
 import { Context, downloadedBooks, navigate } from "../common/common";
+import { DownloadButton as DownloadIndex } from './UpdateScreen'
 import { BookType, BottomTabParamList } from "../types";
 import { StackScreenProps } from "@react-navigation/stack";
 const { AND, OR, TERM, CONSTANT, DISMAX } = require("paxx");
@@ -211,16 +212,8 @@ export default function SearchScreen({
   if (ix.shallow().forward.length == 0) {
     return (
       <Container center={true}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Update");
-          }}
-        >
-          <Text>
-            Local index is empty, go to Settings to download the gutenberg
-            catalog.
-          </Text>
-        </TouchableOpacity>
+          <Text>Index is empty, click to download the catalog from gutenberg.org</Text>
+          <DownloadIndex onDone={() => {}}></DownloadIndex>
       </Container>
     );
   }

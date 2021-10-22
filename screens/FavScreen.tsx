@@ -8,20 +8,34 @@ import { Button, Container, Text } from "../components/Themed";
 import { Context, downloadedBooks, navigate } from "../common/common";
 import { BookRow } from "./SearchScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { DownloadButton as DownloadIndex } from './UpdateScreen'
 
 export default function FavScreen({ navigation }) {
   const [context, setContext] = useContext(Context);
   let books = context.downloaded;
+  let ix = context.index;
+
+  if (ix.shallow().forward.length == 0) {
+    return (
+      <Container center={true}>
+          <Text>Index is empty, click to download the catalog from gutenberg.org</Text>
+          <DownloadIndex onDone={() => {
+            navigation.navigate("Search");
+          }}></DownloadIndex>
+      </Container>
+    );
+  }
+
   if (books.length == 0) {
     return (
       <Container center={true}>
-        <TouchableOpacity
+        <Button
           onPress={() => {
             navigation.navigate("Search");
           }}
         >
           <Text>Use the Search tab to download books.</Text>
-        </TouchableOpacity>
+        </Button>
       </Container>
     );
   }

@@ -187,7 +187,7 @@ export function DownloadButton({ onDone }: { onDone: () => void }) {
         return download();
       }}
     >
-      <Text>download</Text>
+      <Text>&gt;download catalog&lt;</Text>
     </Button>
   );
 }
@@ -247,7 +247,7 @@ export default function UpdateScreen() {
             ? `index.json : ${fileInfo.size} bytes,  ${new Date(
                 fileInfo.modificationTime * 1000
               ).toLocaleDateString(undefined, options)}`
-            : "... no index yet, click download."}
+            : "... No index yet, click download."}
         </Text>
         <DownloadButton onDone={getFileInfo}></DownloadButton>
         <Text style={{ padding: 20 }}>Theme</Text>
