@@ -20,7 +20,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "org.punkjazz",
+      "bundleIdentifier": "org.punkjazz"
     },
     "android": {
       "adaptiveIcon": {
