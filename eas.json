@@ -10,9 +10,6 @@
   },
   "build": {
     "production": {
-        "ios": {
-	   "buildNumber": "2"
-	}
     }
   }
 }
