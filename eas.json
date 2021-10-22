@@ -1,0 +1,11 @@
+{
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "jackdoe@fastmail.com",
+        "ascAppId": "1591497190",
+        "appleTeamId": "23LTAYJ5Y8"
+      }
+    }
+  }
+}
